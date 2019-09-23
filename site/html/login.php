@@ -1,6 +1,5 @@
 <?php
 require("utils.php");
-
 session_start(); 
 
 $pseudo = $_POST['pseudo'];

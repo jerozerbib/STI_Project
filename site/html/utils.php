@@ -59,4 +59,12 @@ function read(){
     $db->close();
 }
 
+function verify(){
+
+    if (!isset($_SESSION['connec']) && $_SESSION['conec'] != true){
+		
+	    header('Location: index.php');
+    }
+}
+
 ?>

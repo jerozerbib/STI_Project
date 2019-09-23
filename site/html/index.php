@@ -1,12 +1,10 @@
 <?php 
-
 session_start(); 
 
 if (isset($_SESSION['connec']) && $_SESSION['connec'] == true){
 		
 	header('Location: menu.php');
 }
-
 ?>
 
 <!DOCTYPE html>
