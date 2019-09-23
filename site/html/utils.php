@@ -1,6 +1,6 @@
 <?php
 
-const DB_PATH='/Applications/MAMP/htdocs/site/databases/test.db'; 
+const DB_PATH='/usr/share/nginx/databases/test.db'; 
 
 function connect($pseudo, $passwd){
 
