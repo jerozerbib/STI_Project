@@ -1,6 +1,6 @@
 <?php
 $db = new SQLite3('test.db');
-$res=$db->exec("CREATE TABLE USER (id INTEGER PRIMARY KEY, firstname TEXT NOT NULL, lastname TEXT NOT NULL, pseudo TEXT NOT NULL, passwd TEXT NOT NULL);");
+$res=$db->exec("CREATE TABLE USER (id INTEGER PRIMARY KEY, pseudo TEXT NOT NULL, passwd TEXT NOT NULL, validity INTEGER NOT NULL, roles TEXT NOT NULL);");
 if($res){
     echo "Table created!!!\n";
 }

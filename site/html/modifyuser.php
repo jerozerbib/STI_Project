@@ -8,7 +8,7 @@ verifyAdmin();
 <!DOCTYPE html>
 <html>
 
-	<link href="css/admin.css" rel="stylesheet">
+	<link href="css/modifyuser.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
@@ -36,7 +36,24 @@ verifyAdmin();
 		</nav>	  
 		</header>
 
-		<h1 class="title">CHAT STI</h1>
-		
+		<h1 class="title">Modify User</h1>
+
+		<div class="center" style="width:500px;">
+			<select name="people"  class="browser-default custom-select">
+			<?php
+
+				$db = new SQLite3(DB_PATH);
+				if(!$db) {
+					echo $db->lastErrorMsg();
+				}
+				$query="SELECT * FROM USER;";
+				$result=$db->query($query);
+				while($row= $result->fetchArray()){
+					echo '<option value="'.$row['id'] .'">'. $row['pseudo'].'</option>';
+				}
+				$db->close();
+			?>
+			</select>
+		</div>
 	</body>
 </html>

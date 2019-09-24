@@ -10,7 +10,7 @@ if (isset($_SESSION['connec']) && $_SESSION['connec'] == true){
 <!DOCTYPE html>
 <html>
 	
-	<link href="css/register.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
@@ -27,13 +27,15 @@ if (isset($_SESSION['connec']) && $_SESSION['connec'] == true){
   			</div>
 		</nav>	  
 		
+		<h1 class="title">HEIG STI</h1>
+		<div class="center" style="width:500px;">
 		<form method="post" action="login.php" class="form-signin">
 			<div>
-				<h1 class="title">HEIG STI</h1>
 				<input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" required autofocus>
                 <input type="password" name="passwd" id="passwd" class="form-control" placeholder="Password" required>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
 			</div>
 		</form>
+		</div>
 	</body>
 </html>

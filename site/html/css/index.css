@@ -1,4 +1,10 @@
 
+.center{
+  margin: auto;
+  padding-top: 50px;
+}
+
 .title {
+  padding-top: 20px;
   text-align: center;
 }
