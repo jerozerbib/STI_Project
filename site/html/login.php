@@ -9,12 +9,14 @@ if(isset($pseudo) && isset($passwd)){
     
     if(connect($pseudo, $passwd) == 1){
             
-        //changeValidity($pseudo, 1);
+        changeValidity($pseudo, 1);
         $row = getUser($pseudo, $passwd);
         $_SESSION['pseudo'] = $row['pseudo'];
         $_SESSION['connec'] = true;
         $_SESSION['validity'] = $row['validity'];
         $_SESSION['roles'] = $row['roles'];
+        $_SESSION['fail'] = false;
+
         
 		header('Location: menu.php');
     }

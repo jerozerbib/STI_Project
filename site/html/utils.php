@@ -56,6 +56,18 @@ function insertDatabase($pseudo, $passwd){
     return $numRows;
 }
 
+function updateUser($id, $pseudo, $validity, $role, $passwd){
+
+    $db = new SQLite3(DB_PATH);
+
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    }
+    
+    $db->query("UPDATE USER SET pseudo='$pseudo', passwd='$passwd', validity='$validity', roles='$role' WHERE id='$id'");
+    $db->close();
+}
+
 function deleteUser($id){
 
     $db = new SQLite3(DB_PATH);
@@ -91,7 +103,7 @@ function insertDatabaseAdmin($pseudo, $validity, $roles, $passwd){
     return $numRows;
 }
 
-function changeStatut($pseudo, $validity){
+function changeValidity($pseudo, $validity){
 
     $db = new SQLite3(DB_PATH);
 
@@ -113,6 +125,9 @@ function read(){
      }
     $query="SELECT * FROM USER;";
     $result=$db->query($query);
+	while($row= $result->fetchArray()){
+					echo $row['id'] ."\t". $row['pseudo'] ."\t". $row['validity'] ."\n";
+	}
     $db->close();
     return $result;
 }
