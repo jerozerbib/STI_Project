@@ -33,29 +33,6 @@ function getUser($pseudo, $passwd){
     return $row;
 }
 
-
-function insertDatabase($pseudo, $passwd){
-
-    $db = new SQLite3(DB_PATH);
-    if(!$db) {
-        echo $db->lastErrorMsg();
-    } else {
-        echo "Opened database successfully\n";
-    }
-
-    $rows = $db->query("SELECT COUNT(*) as count FROM USER WHERE pseudo = '$pseudo'");
-    $row = $rows->fetchArray();
-    $numRows = $row['count'];
-
-    if($numRows == 0){
-        $query="INSERT INTO USER"."(pseudo, passwd, validity, roles)"."VALUES ('$pseudo','$passwd', '1' , 'regular');";
-        $db->exec($query);
-    }
-    $db->close();
-
-    return $numRows;
-}
-
 function updateUser($id, $pseudo, $validity, $role, $passwd){
 
     $db = new SQLite3(DB_PATH);
@@ -93,7 +70,7 @@ function deleteUser($id){
     $db->close();
 }
 
-function insertDatabaseAdmin($pseudo, $validity, $roles, $passwd){
+function insertUser($pseudo, $validity, $roles, $passwd){
 
     $db = new SQLite3(DB_PATH);
     if(!$db) {

@@ -10,7 +10,7 @@ $passwd2 = $_POST['passwd2'];
 
 if(isset($pseudo) && isset($validity) && isset($roles) && isset($passwd1) && isset($passwd2) && ($passwd1 == $passwd2)){
       
-    $ok = insertDatabaseAdmin($pseudo, $validity, $roles, $passwd1);
+    $ok = insertUser($pseudo, $validity, $roles, $passwd1);
 
     if($ok == 1){
         $_SESSION['fail'] = true;
