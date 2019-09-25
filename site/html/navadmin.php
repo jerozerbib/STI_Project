@@ -1,15 +1,15 @@
 <header>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-inverse bg-dark">
 			<div class="collapse navbar-collapse" id="navbarNav">
     			<ul class="navbar-nav">
                     <li class="nav-item">
-        				<a class="nav-link" href='#'>Chat</a>
+        				<a class="nav-link" href='menu.php'>Chat</a>
       				</li>
                     <li class="nav-item">
         				<a class="nav-link" href='adduser.php'>AddUser</a>
       				</li>
                     <li class="nav-item">
-        				<a class="nav-link" href='modifyuser.php'>ModifyUser</a>
+        				<a class="nav-link" href='updateuserchoice.php'>UpdateUser</a>
       				</li>
                     <li class="nav-item">
         				<a class="nav-link" href='deleteuser.php'>DeleteUser</a>

@@ -8,16 +8,16 @@ verifyAdmin();
 <!DOCTYPE html>
 <html>
 
-	<link href="css/modifyuser.css" rel="stylesheet">
+	<link href="css/updateuserchoice.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
 		<?php include('navadmin.php'); ?>
 
-		<h1 class="title">Modify User</h1>
+		<h1 class="title">Update User</h1>
 
 		<div class="center" style="width:500px;">
-		<form method="post" action="modifyuserbis.php">
+		<form method="post" action="updateuser.php">
 			<select name="choice"  class="browser-default custom-select">
 			<?php
 

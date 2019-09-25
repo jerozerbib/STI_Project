@@ -30,7 +30,7 @@ if(isset($_SESSION['fail']) && $_SESSION['fail'] == true){
                 <input type="text" name="validity" id="validity" class="form-control" placeholder="Validity" required>
                 <input type="text" name="roles" id="roles" class="form-control" placeholder="Role" required>
                 <input type="password" name="passwd1" id="passwd1" class="form-control" placeholder="Password" required>
-                <input type="password" name="passwd2" id="passwd2" class="form-control" placeholder="Repeted Password" required>
+                <input type="password" name="passwd2" id="passwd2" class="form-control" placeholder="Confirm Password" required>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
 			</div>
 		</form>

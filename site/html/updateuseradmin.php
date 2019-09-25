@@ -10,5 +10,5 @@ $passwd= $_POST['passwd'];
 
 updateUser($id, $pseudo, $validity, $role, $passwd);
 
-header('Location: modifyuser.php');
+header('Location: updateuserchoice.php');
 ?>

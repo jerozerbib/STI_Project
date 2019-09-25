@@ -15,13 +15,11 @@ if(isset($pseudo) && isset($passwd)){
         $_SESSION['connec'] = true;
         $_SESSION['validity'] = $row['validity'];
         $_SESSION['roles'] = $row['roles'];
-        $_SESSION['fail'] = false;
 
-        
 		header('Location: menu.php');
     }
     else{
-        echo '<script>alert("Fail")</script>';
+        
 	    header('Location: index.php');
     }
     exit();

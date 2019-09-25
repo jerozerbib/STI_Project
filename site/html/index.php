@@ -14,14 +14,11 @@ if (isset($_SESSION['connec']) && $_SESSION['connec'] == true){
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-inverse bg-dark">
 			<div class="collapse navbar-collapse" id="navbarNav">
     			<ul class="navbar-nav">
       				<li class="nav-item">
-        				<a class="nav-link" href='index.php'>Login</a>
-      				</li>
-      				<li class="nav-item">
-        				<a class="nav-link" href='register.php'>Register</a>
+        				<a class="nav-link" href='#'>Login</a>
       				</li>
     			</ul>
   			</div>

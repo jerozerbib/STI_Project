@@ -8,13 +8,13 @@ verifyAdmin();
 <!DOCTYPE html>
 <html>
 
-	<link href="css/modifyuserbis.css" rel="stylesheet">
+	<link href="css/updateuser.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
 		<?php include('navadmin.php'); ?>
 
-		<h1 class="title">Modify User</h1>
+		<h1 class="title">Update User</h1>
 
         <div class="center" style="width:500px;">
         <?php 
@@ -31,7 +31,7 @@ verifyAdmin();
             
             $_SESSION['idadmin'] = $choice;
         
-            echo '<form method="post" action="modifyuseradmin.php" class="form-signin">';
+            echo '<form method="post" action="updateuseradmin.php" class="form-signin">';
             echo '<div class="form-group row">';
             echo '<label for="pseudo "class="col-sm-2 col-form-label">Pseudo</label>';
             echo '<div class="col-sm-10">';
@@ -53,7 +53,7 @@ verifyAdmin();
             echo '<div class="form-group row">';
             echo '<label for="passwd"class="col-sm-2 col-form-label">Password</label>';
             echo '<div class="col-sm-10">';
-            echo '<input type="text" name="passwd" id="passwd" class="form-control" placeholder="Password"  value="'.$row['passwd'].'" required>';
+            echo '<input type="password" name="passwd" id="passwd" class="form-control" placeholder="Password"  value="'.$row['passwd'].'" required>';
 			echo '<button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>';
             echo '</form>';
             

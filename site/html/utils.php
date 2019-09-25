@@ -68,6 +68,18 @@ function updateUser($id, $pseudo, $validity, $role, $passwd){
     $db->close();
 }
 
+function updatePasswd($pseudo, $passwd){
+
+    $db = new SQLite3(DB_PATH);
+
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    }
+    
+    $db->query("UPDATE USER SET passwd='$passwd' WHERE pseudo='$pseudo'");
+    $db->close();
+}
+
 function deleteUser($id){
 
     $db = new SQLite3(DB_PATH);
