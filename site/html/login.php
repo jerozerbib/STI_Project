@@ -22,6 +22,5 @@ if(isset($pseudo) && isset($passwd)){
         
 	    header('Location: index.php');
     }
-    exit();
 }
 ?>

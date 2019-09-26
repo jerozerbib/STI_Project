@@ -3,6 +3,12 @@ require("utils.php");
 session_start(); 
 verify();
 verifyAdmin();
+
+if (!isset($_POST['choice'])){
+		
+	header('Location: updateuserchoice.php');
+}
+
 ?>
 
 <!DOCTYPE html>

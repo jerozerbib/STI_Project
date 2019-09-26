@@ -24,5 +24,4 @@ else{
     
     header('Location: adduser.php');
 }
-exit();	
 ?>
