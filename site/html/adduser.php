@@ -8,8 +8,8 @@ if(isset($_SESSION['fail']) && $_SESSION['fail'] == true){
 
 	$message='Pseudo already exist';
 	echo '<script type="text/javascript">alert("'.$message.'");</script>';
+	$_SESSION['fail'] = false;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -19,12 +19,12 @@ if(isset($_SESSION['fail']) && $_SESSION['fail'] == true){
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
-		<?php include('navadmin.php'); ?>
+		<?php include('nav.php'); ?>
 
 		<h1 class="title">Add User</h1> 
 		
         <div class="adduserpad" style="width:500px;">
-		<form method="post" action="adduseradmin.php" class="form-signin">
+		<form method="post" action="adduserscript.php" class="form-signin">
 			<div>
 				<input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" required autofocus>
                 <input type="text" name="validity" id="validity" class="form-control" placeholder="Validity" required>

@@ -15,9 +15,6 @@ if(isset($pseudo) && isset($validity) && isset($roles) && isset($passwd1) && iss
     if($ok == 1){
         $_SESSION['fail'] = true;
     }
-    else{
-        $_SESSION['fail'] = false;
-    }
     header('Location: adduser.php');
 }
 else{

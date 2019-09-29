@@ -33,7 +33,7 @@ function getUser($pseudo, $passwd){
     return $row;
 }
 
-function updateUser($id, $pseudo, $validity, $role, $passwd){
+function getUserPseudo($id){
 
     $db = new SQLite3(DB_PATH);
 
@@ -41,7 +41,37 @@ function updateUser($id, $pseudo, $validity, $role, $passwd){
         echo $db->lastErrorMsg();
     }
     
-    $db->query("UPDATE USER SET pseudo='$pseudo', passwd='$passwd', validity='$validity', roles='$role' WHERE id='$id'");
+    $rows = $db->query("SELECT pseudo FROM USER WHERE id = '$id'");
+    $row = $rows->fetchArray();
+    $db->close();
+
+    return $row['pseudo'];
+}
+
+function getID($pseudo){
+
+    $db = new SQLite3(DB_PATH);
+
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    }
+    
+    $rows = $db->query("SELECT id FROM USER WHERE pseudo = '$pseudo'");
+    $row = $rows->fetchArray();
+    $db->close();
+
+    return $row['id'];
+}
+
+function updateUser($id, $validity, $role, $passwd){
+
+    $db = new SQLite3(DB_PATH);
+
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    }
+    
+    $db->query("UPDATE USER SET passwd='$passwd', validity='$validity', roles='$role' WHERE id='$id'");
     $db->close();
 }
 
@@ -104,6 +134,63 @@ function changeValidity($pseudo, $validity){
     $db->close();
 }
 
+
+function readMessage(){
+
+    $db = new SQLite3(DB_PATH);
+    if(!$db) {
+        echo $db->lastErrorMsg();
+     } else {
+        echo "Opened database successfully\n";
+     }
+    $query="SELECT * FROM CHAT ORDER BY Timestamp;";
+    $result=$db->query($query);
+	while($row= $result->fetchArray()){
+					echo $row['messages']."\n";
+	}
+    $db->close();
+}
+
+function messageDetails($id){
+
+    $db = new SQLite3(DB_PATH);
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    }
+    $query="SELECT * FROM CHAT WHERE id='$id';";
+    $result=$db->query($query);
+	$row= $result->fetchArray();
+    $db->close();
+
+    return $row;
+}
+
+function addMessage($ids, $idr, $topic, $message){
+
+    $db = new SQLite3(DB_PATH);
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    } else {
+        echo "Opened database successfully\n";
+    }
+    $query="INSERT INTO CHAT"."(idsend, idreceive, topic, messages)"."VALUES ('$ids','$idr', '$topic', '$message');";
+    $db->exec($query);
+    $db->close();
+}
+
+function deleteMessage($id){
+
+    $db = new SQLite3(DB_PATH);
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    } else {
+        echo "Opened database successfully\n";
+    }
+    $query="DELETE FROM CHAT WHERE  id = '$id';";
+    $db->exec($query);
+    $db->close();
+}
+
 function read(){
 
     $db = new SQLite3(DB_PATH);
@@ -112,10 +199,11 @@ function read(){
      } else {
         echo "Opened database successfully\n";
      }
-    $query="SELECT * FROM USER;";
+    $query="SELECT * FROM CHAT;";
     $result=$db->query($query);
 	while($row= $result->fetchArray()){
-					echo $row['id'] ."\t". $row['pseudo'] ."\t". $row['validity'] ."\n";
+                    echo  $row['idsend'] ."\t". $row['idreceive'] ."\t". $row['messages']."\r\n";
+                    echo "</br>";
 	}
     $db->close();
     return $result;
@@ -133,7 +221,7 @@ function verifyAdmin(){
 
     if (isset($_SESSION['roles']) && $_SESSION['roles'] != 'admin' ){
 		
-        header('Location: menu.php');
+        header('Location: message.php');
     }
 }
 ?>

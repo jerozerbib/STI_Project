@@ -12,12 +12,12 @@ verifyAdmin();
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
-		<?php include('navadmin.php'); ?>	
+		<?php include('nav.php'); ?>	
 
 		<h1 class="title">Delete User</h1>
         
 		<div class="centerform">
-			<form method="post" action="deleteuseradmin.php">
+			<form method="post" action="deleteuserscript.php">
 				
 				<?php
 				$db = new SQLite3(DB_PATH);

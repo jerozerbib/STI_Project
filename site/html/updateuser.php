@@ -8,7 +8,6 @@ if (!isset($_POST['choice'])){
 		
 	header('Location: updateuserchoice.php');
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +17,7 @@ if (!isset($_POST['choice'])){
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
-		<?php include('navadmin.php'); ?>
+		<?php include('nav.php'); ?>
 
 		<h1 class="title">Update User</h1>
 
@@ -37,11 +36,11 @@ if (!isset($_POST['choice'])){
             
             $_SESSION['idadmin'] = $choice;
         
-            echo '<form method="post" action="updateuseradmin.php" class="form-signin">';
+            echo '<form method="post" action="updateuserscript.php" class="form-signin">';
             echo '<div class="form-group row">';
             echo '<label for="pseudo "class="col-sm-2 col-form-label">Pseudo</label>';
             echo '<div class="col-sm-10">';
-            echo '<input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" value="'.$row['pseudo'].'" required autofocus>';
+            echo '<input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" value="'.$row['pseudo'].'" disabled="disabled" required autofocus>';
             echo '</div>';
             echo '</div>';
             echo '<div class="form-group row">';

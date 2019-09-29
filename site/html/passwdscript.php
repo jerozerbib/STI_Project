@@ -10,7 +10,7 @@ if(isset($passwd1) && isset($passwd2) && ($passwd1==$passwd2)){
 
     updatePasswd($pseudo, $passwd1);
 
-    header('Location: menu.php');
+    header('Location: message.php');
 }
 else{
 

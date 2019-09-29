@@ -1,21 +1,12 @@
-<?php 
-require("utils.php");
-session_start(); 
-verify();
-?>
-<!DOCTYPE html>
-<html>
-
-	<link href="css/menu.css" rel="stylesheet">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<body>
-
-		<header>
+<header>
 		<nav class="navbar navbar-expand-lg navbar-inverse bg-dark">
 			<div class="collapse navbar-collapse" id="navbarNav">
     			<ul class="navbar-nav">
                     <li class="nav-item">
-        				<a class="nav-link" href='menu.php'>Chat</a>
+        				<a class="nav-link" href='message.php'>MessageBox</a>
+					</li>
+					<li class="nav-item">
+        				<a class="nav-link" href='newmessage.php'>NewMessage</a>
       				</li>
 					<?php
 					if(isset($_SESSION['roles']) && $_SESSION['roles'] == 'admin' ){
@@ -42,9 +33,4 @@ verify();
     			</ul>
   			</div>
 		</nav>	  
-		</header>
-
-		<h1 class="title">CHAT STI</h1>
-		
-	</body>
-</html>
+</header>

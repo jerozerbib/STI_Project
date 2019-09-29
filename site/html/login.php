@@ -15,8 +15,9 @@ if(isset($pseudo) && isset($passwd)){
         $_SESSION['connec'] = true;
         $_SESSION['validity'] = $row['validity'];
         $_SESSION['roles'] = $row['roles'];
+        $_SESSION['id'] = $row['id'];
 
-		header('Location: menu.php');
+		header('Location: message.php');
     }
     else{
         

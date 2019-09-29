@@ -12,7 +12,7 @@ verifyAdmin();
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
-		<?php include('navadmin.php'); ?>
+		<?php include('nav.php'); ?>
 
 		<h1 class="title">Update User</h1>
 
