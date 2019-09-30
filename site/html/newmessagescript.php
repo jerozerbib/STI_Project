@@ -3,11 +3,11 @@ require("utils.php");
 session_start(); 
 
 $ids = $_SESSION['id']; 
-$idr = getID($_POST['recipient']);
-$topic = SQLite3::escapeString($_POST['topic']);
+$idr = getID($_POST['to']);
+$subject = SQLite3::escapeString($_POST['subject']);
 $message = SQLite3::escapeString($_POST['message']);
 
-addMessage($ids, $idr, $topic, $message);
+addMessage($ids, $idr, $subject, $message);
 
 header('Location: newmessage.php');
 ?>

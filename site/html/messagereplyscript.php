@@ -4,10 +4,10 @@ session_start();
 
 $idr = $_SESSION['idsend'];
 $ids = $_SESSION['idreceive'];
-$topic = SQLite3::escapeString($_SESSION['topic']);
+$subject = SQLite3::escapeString($_SESSION['subject']);
 $message = SQLite3::escapeString($_POST['message']);
 
-addMessage($ids, $idr, $topic, $message);
+addMessage($ids, $idr, $subject, $message);
 
 header('Location: message.php');
 ?>

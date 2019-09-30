@@ -6,7 +6,7 @@ verify();
 <!DOCTYPE html>
 <html>
 
-	<link href="css/newmessage.css" rel="stylesheet">
+	<link href="css/messagereply.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
@@ -23,11 +23,11 @@ verify();
                     $pseudo = getUserPseudo($row['idsend']);
                     $_SESSION['idsend'] = $row['idsend'];
                     $_SESSION['idreceive'] = $row['idreceive'];
-                    $_SESSION['topic'] = $row['topic'];
+                    $_SESSION['subject'] = $row['subject'];
 
                     ?>
-                    <input type="text" name="recipient" id="recipient" class="form-control" value="<?php echo $pseudo ?>" disabled="disabled" required>
-                    <input type="text" name="topic" id="topic" class="form-control" value="<?php echo $row['topic'] ?>" disabled="disabled" required>
+                    <input type="text" name="to" id="to" class="form-control" value="<?php echo $pseudo ?>" disabled="disabled" required>
+                    <input type="text" name="subject" id="subject" class="form-control" value="<?php echo $row['subject'] ?>" disabled="disabled" required>
 				    <input type="text" name="message" id="message" class="form-control" placeholder="Message" required>
 				    <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
 			    </div>

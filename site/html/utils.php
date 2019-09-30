@@ -2,14 +2,15 @@
 
 const DB_PATH='/usr/share/nginx/databases/test.db'; 
 
+/*
+* Verify if the couple pseudo password exist.
+*/
 function connect($pseudo, $passwd){
 
     $db = new SQLite3(DB_PATH);
-
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    
     $rows = $db->query("SELECT COUNT(*) as count FROM USER WHERE pseudo = '$pseudo' AND passwd = '$passwd'");
     $row = $rows->fetchArray();
     $db->close();
@@ -18,14 +19,15 @@ function connect($pseudo, $passwd){
     return  $numRows;
 }
 
+/**
+ * Get every fields form a user with a pseudo and a password.
+ */
 function getUser($pseudo, $passwd){
 
     $db = new SQLite3(DB_PATH);
-
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    
     $rows = $db->query("SELECT * FROM USER WHERE pseudo = '$pseudo' AND passwd = '$passwd'");
     $row = $rows->fetchArray();
     $db->close();
@@ -33,14 +35,15 @@ function getUser($pseudo, $passwd){
     return $row;
 }
 
+/**
+ * Get pseudo with the id.
+ */
 function getUserPseudo($id){
 
     $db = new SQLite3(DB_PATH);
-
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    
     $rows = $db->query("SELECT pseudo FROM USER WHERE id = '$id'");
     $row = $rows->fetchArray();
     $db->close();
@@ -48,14 +51,15 @@ function getUserPseudo($id){
     return $row['pseudo'];
 }
 
+/**
+ * Get the id with a pseudo.
+ */
 function getID($pseudo){
 
     $db = new SQLite3(DB_PATH);
-
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    
     $rows = $db->query("SELECT id FROM USER WHERE pseudo = '$pseudo'");
     $row = $rows->fetchArray();
     $db->close();
@@ -63,52 +67,54 @@ function getID($pseudo){
     return $row['id'];
 }
 
+/**
+ * Update an existing user.
+ */
 function updateUser($id, $validity, $role, $passwd){
 
     $db = new SQLite3(DB_PATH);
-
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    
     $db->query("UPDATE USER SET passwd='$passwd', validity='$validity', roles='$role' WHERE id='$id'");
     $db->close();
 }
 
+/**
+ * Update the password with a pseudo.
+ */
 function updatePasswd($pseudo, $passwd){
 
     $db = new SQLite3(DB_PATH);
-
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    
     $db->query("UPDATE USER SET passwd='$passwd' WHERE pseudo='$pseudo'");
     $db->close();
 }
 
+/**
+ * Delete a user with the id.
+ */
 function deleteUser($id){
 
     $db = new SQLite3(DB_PATH);
     if(!$db) {
         echo $db->lastErrorMsg();
-    } else {
-        echo "Opened database successfully\n";
     }
-
     $db->query("DELETE FROM USER WHERE  id = '$id'");
     $db->close();
 }
 
+/**
+ * Insert a new user if the pseudo is not already used.
+ */
 function insertUser($pseudo, $validity, $roles, $passwd){
 
     $db = new SQLite3(DB_PATH);
     if(!$db) {
         echo $db->lastErrorMsg();
-    } else {
-        echo "Opened database successfully\n";
     }
-
     $rows = $db->query("SELECT COUNT(*) as count FROM USER WHERE pseudo = '$pseudo'");
     $row = $rows->fetchArray();
     $numRows = $row['count'];
@@ -125,32 +131,16 @@ function insertUser($pseudo, $validity, $roles, $passwd){
 function changeValidity($pseudo, $validity){
 
     $db = new SQLite3(DB_PATH);
-
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    
     $db->query("UPDATE USER SET validity='$validity' WHERE pseudo='$pseudo'");
     $db->close();
 }
 
-
-function readMessage(){
-
-    $db = new SQLite3(DB_PATH);
-    if(!$db) {
-        echo $db->lastErrorMsg();
-     } else {
-        echo "Opened database successfully\n";
-     }
-    $query="SELECT * FROM CHAT ORDER BY Timestamp;";
-    $result=$db->query($query);
-	while($row= $result->fetchArray()){
-					echo $row['messages']."\n";
-	}
-    $db->close();
-}
-
+/**
+ * Return details message with the id
+ */
 function messageDetails($id){
 
     $db = new SQLite3(DB_PATH);
@@ -165,52 +155,37 @@ function messageDetails($id){
     return $row;
 }
 
-function addMessage($ids, $idr, $topic, $message){
+/**
+ * Add a new message with an the sender id, receiver id, the subject and the message.
+ */
+function addMessage($ids, $idr, $subject, $message){
 
     $db = new SQLite3(DB_PATH);
     if(!$db) {
         echo $db->lastErrorMsg();
-    } else {
-        echo "Opened database successfully\n";
     }
-    str_replace($message,"'","\\'");
-    echo $message;
-    $query="INSERT INTO CHAT"."(idsend, idreceive, topic, messages)"."VALUES ('$ids','$idr', '$topic', '$message');";
+    $query="INSERT INTO CHAT"."(idsend, idreceive, subject, messages)"."VALUES ('$ids','$idr', '$subject', '$message');";
     $db->exec($query);
     $db->close();
 }
 
+/**
+ * Delete a message from the database with the id
+ */
 function deleteMessage($id){
 
     $db = new SQLite3(DB_PATH);
     if(!$db) {
         echo $db->lastErrorMsg();
-    } else {
-        echo "Opened database successfully\n";
     }
     $query="DELETE FROM CHAT WHERE  id = '$id';";
     $db->exec($query);
     $db->close();
 }
 
-function read(){
-
-    $db = new SQLite3(DB_PATH);
-    if(!$db) {
-        echo $db->lastErrorMsg();
-     } else {
-        echo "Opened database successfully\n";
-     }
-    $query="SELECT * FROM CHAT;";
-    $result=$db->query($query);
-	while($row= $result->fetchArray()){
-                    echo  $row['idsend'] ."\t". $row['idreceive'] ."\t". $row['messages']."\r\n";
-                    echo "</br>";
-	}
-    $db->close();
-    return $result;
-}
-
+/**
+ * Verify if someone is connected or not to access pages
+ */
 function verify(){
 
     if (!isset($_SESSION['connec']) && $_SESSION['conec'] != true){
@@ -219,6 +194,9 @@ function verify(){
     }
 }
 
+/**
+ * Verify if someone is an admin or not to access pages
+ */
 function verifyAdmin(){
 
     if (isset($_SESSION['roles']) && $_SESSION['roles'] != 'admin' ){

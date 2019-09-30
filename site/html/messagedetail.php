@@ -25,9 +25,9 @@ verify();
                 $result=$db->query($query);
                 while($row= $result->fetchArray()){
                     echo '<div>';
-                    echo '<div style="padding-top: 20px;">DATE :'.$row['Timestamp']. '</div>';
-                    echo '<div>SENDER : '.getUserPseudo($row['idsend']). '</div>';
-                    echo '<div>TOPIC :'.$row['topic'].'</div>';
+                    echo '<div style="padding-top: 20px;">Date :'.$row['Timestamp']. '</div>';
+                    echo '<div>From : '.getUserPseudo($row['idsend']). '</div>';
+                    echo '<div>Subject :'.$row['subject'].'</div>';
                     echo '<div>Message :'.$row['messages'].'</div>';
                     echo '<form action="messagescript.php" method="post">';
                     echo '<div style="width:200px;">';
