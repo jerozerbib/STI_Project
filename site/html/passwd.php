@@ -2,11 +2,6 @@
 require("utils.php");
 session_start(); 
 verify();
-
-if (isset($_SESSION['roles']) && $_SESSION['roles'] == 'admin' ){
-		
-	header('Location: menu.php');
-}
 ?>
 
 <!DOCTYPE html>

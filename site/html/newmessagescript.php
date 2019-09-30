@@ -4,8 +4,8 @@ session_start();
 
 $ids = $_SESSION['id']; 
 $idr = getID($_POST['recipient']);
-$topic = $_POST['topic'];
-$message = $_POST['message'];
+$topic = SQLite3::escapeString($_POST['topic']);
+$message = SQLite3::escapeString($_POST['message']);
 
 addMessage($ids, $idr, $topic, $message);
 

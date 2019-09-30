@@ -173,6 +173,8 @@ function addMessage($ids, $idr, $topic, $message){
     } else {
         echo "Opened database successfully\n";
     }
+    str_replace($message,"'","\\'");
+    echo $message;
     $query="INSERT INTO CHAT"."(idsend, idreceive, topic, messages)"."VALUES ('$ids','$idr', '$topic', '$message');";
     $db->exec($query);
     $db->close();

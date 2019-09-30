@@ -8,6 +8,9 @@
 					<li class="nav-item">
         				<a class="nav-link" href='newmessage.php'>NewMessage</a>
       				</li>
+					<li class="nav-item">
+						<a class="nav-link" href=passwd.php>ChangePassword</a>
+					</li>
 					<?php
 					if(isset($_SESSION['roles']) && $_SESSION['roles'] == 'admin' ){
 
@@ -19,11 +22,6 @@
 						echo '</li>';
 						echo '<li class="nav-item">';
 						echo '<a class="nav-link" href=\'deleteuser.php\'>DeleteUser</a>';
-						echo '</li>';
-					}
-					else{
-						echo '<li class="nav-item">';
-						echo '<a class="nav-link" href=\'passwd.php\'>ChangePassword</a>';
 						echo '</li>';
 					}
 					?>
