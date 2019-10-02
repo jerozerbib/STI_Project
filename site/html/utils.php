@@ -94,7 +94,7 @@ function updatePasswd($pseudo, $passwd){
 }
 
 /**
- * Delete a user with the id.
+ * Delete a user with the id and all messages he receive.
  */
 function deleteUser($id){
 
@@ -103,6 +103,7 @@ function deleteUser($id){
         echo $db->lastErrorMsg();
     }
     $db->query("DELETE FROM USER WHERE  id = '$id'");
+    $db->query("DELETE FROM CHAT WHERE  idreceive = '$id'");
     $db->close();
 }
 
