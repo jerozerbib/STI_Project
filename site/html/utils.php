@@ -129,16 +129,6 @@ function insertUser($pseudo, $validity, $roles, $passwd){
     return $numRows;
 }
 
-function changeValidity($pseudo, $validity){
-
-    $db = new SQLite3(DB_PATH);
-    if(!$db) {
-        echo $db->lastErrorMsg();
-    }
-    $db->query("UPDATE USER SET validity='$validity' WHERE pseudo='$pseudo'");
-    $db->close();
-}
-
 /**
  * Return details message with the id
  */
