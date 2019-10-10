@@ -1,8 +1,7 @@
 #!/bin/bash
 
 if test -f site/databases/test.db; then
-    rm site/databases/test.db
-
+    rm -f site/databases/test.db
 else
     echo "File does not exist so let's move on shall we"
 fi
