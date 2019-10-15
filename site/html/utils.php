@@ -1,6 +1,6 @@
 <?php
 
-const DB_PATH='/usr/share/nginx/databases/test.db'; 
+const DB_PATH='/usr/share/nginx/databases/sti.db'; 
 
 /*
 * Verify if the couple pseudo password exist.

@@ -1,11 +1,5 @@
 # STI Project
 
-## ToDo
-
-1. clean code
-2. prepare statement 
-3. Comments
-
 ## Use case
 
 ### Linux OS
@@ -44,4 +38,7 @@ jee : jee/jee
 
 You can try the app    http://localhost:8080
 
+You can generate a new database with a php script in /site/database/ 
+
+```php sti_db.php```
 
