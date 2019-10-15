@@ -36,9 +36,10 @@ lio : lio/lio
 jere : jere/jere
 jee : jee/jee
 
+To have all permissions, you need to have the field "roles" equal to "admin".
+
 You can try the app    http://localhost:8080
 
 You can generate a new database with a php script in /site/database/ 
 
 ```php sti_db.php```
-
