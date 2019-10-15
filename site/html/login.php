@@ -13,7 +13,7 @@ if(isset($pseudo) && isset($passwd)){
 
         if($row['validity'] == 1){
 
-            $_SESSION['pseudo'] = $row['pseudo'];
+            $_SESSION['pseudo'] = utf8_decode($row['pseudo']);
             $_SESSION['connec'] = true;
             $_SESSION['roles'] = $row['roles'];
             $_SESSION['id'] = $row['id'];

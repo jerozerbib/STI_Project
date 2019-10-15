@@ -21,13 +21,13 @@ verify();
 
                     $row = messageDetails($_SESSION['idmessrep']);
                     $pseudo = getUserPseudo($row['idsend']);
-                    $_SESSION['idsend'] = $row['idsend'];
-                    $_SESSION['idreceive'] = $row['idreceive'];
-                    $_SESSION['subject'] = $row['subject'];
+                    $_SESSION['idsend'] = utf8_decode($row['idsend']);
+                    $_SESSION['idreceive'] = utf8_decode($row['idreceive']);
+                    $_SESSION['subject'] = utf8_decode($row['subject']);
 
                     ?>
-                    <input type="text" name="to" id="to" class="form-control" value="<?php echo $pseudo ?>" disabled="disabled" required>
-                    <input type="text" name="subject" id="subject" class="form-control" value="<?php echo $row['subject'] ?>" disabled="disabled" required>
+                    <input type="text" name="to" id="to" class="form-control" value="<?php echo utf8_decode($pseudo) ?>" disabled="disabled" required>
+                    <input type="text" name="subject" id="subject" class="form-control" value="<?php echo utf8_decode($row['subject']) ?>" disabled="disabled" required>
 				    <input type="text" name="message" id="message" class="form-control" placeholder="Message" required>
 				    <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
 			    </div>

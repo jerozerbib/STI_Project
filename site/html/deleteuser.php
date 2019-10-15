@@ -29,7 +29,7 @@ verifyAdmin();
 				while($row= $result->fetchArray()){
 					echo '<div class="custom-control custom-checkbox">';
 					echo '<input class="custom-control-input" type="checkbox" name="del[]" id="'.$row['id'] .'" value="'.$row['id'] .'">'."\n";
-					echo '<label class="custom-control-label" for="'. $row['id'] .'">'. $row['pseudo'].'</label>'."\n";
+					echo '<label class="custom-control-label" for="'. $row['id'] .'">'.utf8_decode($row['pseudo']).'</label>'."\n";
 					echo '</div>';
 				}
 				$db->close();

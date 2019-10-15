@@ -28,7 +28,7 @@ verifyAdmin();
 				$query="SELECT * FROM USER;";
 				$result=$db->query($query);
 				while($row= $result->fetchArray()){
-					echo '<option value="'.$row['id'] .'">'. $row['pseudo'].'</option>';
+					echo '<option value="'.$row['id'] .'">'.utf8_decode($row['pseudo']).'</option>';
 				}
 				$db->close();
 			?>

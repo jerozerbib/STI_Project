@@ -40,7 +40,7 @@ if (!isset($_POST['choice'])){
             echo '<div class="form-group row">';
             echo '<label for="pseudo "class="col-sm-2 col-form-label">Pseudo</label>';
             echo '<div class="col-sm-10">';
-            echo '<input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" value="'.$row['pseudo'].'" disabled="disabled" required autofocus>';
+            echo '<input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" value="'.utf8_decode($row['pseudo']).'" disabled="disabled" required autofocus>';
             echo '</div>';
             echo '</div>';
             echo '<div class="form-group row">';

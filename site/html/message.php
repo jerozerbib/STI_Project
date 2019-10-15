@@ -26,8 +26,8 @@ verify();
                 while($row= $result->fetchArray()){
                     echo '<div>';
                     echo '<div style="padding-top: 20px;">Date :'.$row['Timestamp']. '</div>';
-                    echo '<div>From : '.getUserPseudo($row['idsend']). '</div>';
-                    echo '<div>Subject :'.$row['subject'].'</div>';
+                    echo '<div>From : '.utf8_decode(getUserPseudo($row['idsend'])). '</div>';
+                    echo '<div>Subject :'.utf8_decode($row['subject']).'</div>';
                     echo '<form action="messagescript.php" method="post">';
                     echo '<div style="width:200px;">';
                     echo '<button class="btn btn-primary btn-block" type="submit" name="up[]" value="rep_'.$row['id'].'">Reply</button>';
