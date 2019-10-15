@@ -19,7 +19,7 @@ verify();
 			    <div>
                     <input type="text" name="to" id="to" class="form-control" placeholder="To" required>
                     <input type="text" name="subject" id="subject" class="form-control" placeholder="Subject" required>
-				    <input type="text" name="message" id="message" class="form-control" placeholder="Message" required>
+				    <textarea type="text" name="message" id="message" class="form-control" placeholder="Message" required></textarea>
 				    <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
 			    </div>
 		    </form>

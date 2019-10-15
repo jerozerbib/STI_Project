@@ -24,7 +24,7 @@ Then, use dock.sh
 First, run the dock.sh
 
 ```bash 
-./dock.sh
+sh dock.sh
 ```
 
 Now there are 4 accounts. admin, lio, jere and jee, jee has low rights. The password for each account is the pseudo.
