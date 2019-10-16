@@ -27,7 +27,7 @@ verify();
                     echo '<div>';
                     echo '<div style="padding-top: 20px;">Date :'.$row['Timestamp']. '</div>';
                     echo '<div>From : '.utf8_decode(getUserPseudo($row['idsend'])). '</div>';
-                    echo '<div>Subject :'.utf8_decode($row['subject']).'</div>';
+                    echo '<div>Subject : '.utf8_decode($row['subject']).'</div>';
                     echo '<div>Message :</div>';
                     echo '<textarea class="form-control" style="width:300px; min-height:100px;" disabled>'.utf8_decode($row['messages']).'</textarea>';
                     echo '<form action="messagescript.php" method="post">';
