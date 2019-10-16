@@ -121,7 +121,7 @@ function insertUser($pseudo, $validity, $roles, $passwd){
     $numRows = $row['count'];
 
     if($numRows == 0){
-        $query="INSERT INTO USER"."(pseudo, passwd, validity, roles)"."VALUES ('$pseudo','$passwd', '$validity' , '$roles');";
+        $query="INSERT INTO USER"."(pseudo, passwd, validity, roles)"."VALUES ('$pseudo','$passwd', '$validity' , '$roles')";
         $db->exec($query);
     }
     $db->close();
@@ -138,7 +138,7 @@ function messageDetails($id){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $query="SELECT * FROM CHAT WHERE id='$id';";
+    $query="SELECT * FROM CHAT WHERE id='$id'";
     $result=$db->query($query);
 	$row= $result->fetchArray();
     $db->close();
@@ -155,7 +155,18 @@ function addMessage($ids, $idr, $subject, $message){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $query="INSERT INTO CHAT"."(idsend, idreceive, subject, messages)"."VALUES ('$ids','$idr', '$subject', '$message');";
+    $query="INSERT INTO CHAT"."(idsend, idreceive, subject, messages, read)"."VALUES ('$ids','$idr', '$subject', '$message', 1)";
+    $db->exec($query);
+    $db->close();
+}
+
+function alreadyRead($id){
+
+    $db = new SQLite3(DB_PATH);
+    if(!$db) {
+        echo $db->lastErrorMsg();
+    }
+    $query="UPDATE CHAT SET read=0 WHERE id='$id'";
     $db->exec($query);
     $db->close();
 }
@@ -169,7 +180,7 @@ function deleteMessage($id){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $query="DELETE FROM CHAT WHERE  id = '$id';";
+    $query="DELETE FROM CHAT WHERE id='$id'";
     $db->exec($query);
     $db->close();
 }

@@ -24,8 +24,11 @@ verify();
                 $query="SELECT * FROM CHAT WHERE idreceive='$id' ORDER BY Timestamp DESC;";
                 $result=$db->query($query);
                 while($row= $result->fetchArray()){
-                    echo '<div>';
-                    echo '<div style="padding-top: 20px;">Date : '.$row['Timestamp']. '</div>';
+                    echo '<div style="padding-top:20px;">';
+                    if($row['read'] == 1){
+                        echo '<div  class="badge badge-primary">NEW</div>';
+                    }
+                    echo '<div>Date : '.$row['Timestamp']. '</div>';
                     echo '<div>From : '.utf8_decode(getUserPseudo($row['idsend'])). '</div>';
                     echo '<div>Subject : '.utf8_decode($row['subject']).'</div>';
                     echo '<form action="messagescript.php" method="post">';

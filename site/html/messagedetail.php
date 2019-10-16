@@ -24,8 +24,9 @@ verify();
                 $query="SELECT * FROM CHAT WHERE id='$id';";
                 $result=$db->query($query);
                 while($row= $result->fetchArray()){
+                    $_SESSION['alreadyread'] = $row['id'];
                     echo '<div>';
-                    echo '<div style="padding-top: 20px;">Date :'.$row['Timestamp']. '</div>';
+                    echo '<div style="padding-top: 20px;">Date : '.$row['Timestamp']. '</div>';
                     echo '<div>From : '.utf8_decode(getUserPseudo($row['idsend'])). '</div>';
                     echo '<div>Subject : '.utf8_decode($row['subject']).'</div>';
                     echo '<div>Message :</div>';
@@ -41,6 +42,7 @@ verify();
                     echo '</form>';
                 }
                 $db->close();
+                alreadyRead($_SESSION['alreadyread']);
             ?>
         </div>
 	</body>
