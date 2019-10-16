@@ -43,3 +43,11 @@ You can try the app    http://localhost:8080
 You can generate a new database with a php script in /site/database/ 
 
 ```php sti_db.php```
+
+
+### Side note
+
+If a user is deleted, all received messages are also deleted frome the database.
+Therefore, the sender will see the message but not the the recepient's name.
+This info cannot be restored if the same user is created.
+
