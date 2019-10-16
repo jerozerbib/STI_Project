@@ -20,7 +20,7 @@ verify();
 				<div>
 					<input type="password" name="passwd1" id="passwd1" class="form-control" placeholder="Password" required autofocus>
                 	<input type="password" name="passwd2" id="passwd2" class="form-control" placeholder="Confirm Password" required>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
 				</div>
 			</form>
         </div>
