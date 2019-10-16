@@ -53,6 +53,6 @@ This info cannot be restored if the same user is created.
 
 ### Presentation
 
-If you want to see the presentation, you can click this [link]("https://drive.google.com/file/d/1Q9Wm9puHtIDBFwBjJOAPY7M6vtDM3wTS/view?usp=sharing")
+If you want to see the presentation, you can click this [link](https://drive.google.com/file/d/1Q9Wm9puHtIDBFwBjJOAPY7M6vtDM3wTS/view?usp=sharing)
 
 
