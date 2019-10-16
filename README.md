@@ -51,3 +51,8 @@ If a user is deleted, all received messages are also deleted frome the database.
 Therefore, the sender will see the message but not the the recepient's name.
 This info cannot be restored if the same user is created.
 
+### Presentation
+
+If you want to see the presentation, you can click this [link]("https://drive.google.com/file/d/1Q9Wm9puHtIDBFwBjJOAPY7M6vtDM3wTS/view?usp=sharing")
+
+
