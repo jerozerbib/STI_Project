@@ -13,3 +13,9 @@ L'ancien document détaillant le manuel d'utilisation se trouve [ici](./docs/old
 #### Début de l'analyse
 
 Tout d'abord, nous avons commencé par lancer l'application. 
+
+Nous avons essayé de *sniffer* des mots de passe avec `wireshark` et nous avons trouvé que ces derniers sont envoyés en clair.
+
+
+
+ 
