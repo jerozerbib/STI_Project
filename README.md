@@ -1,6 +1,6 @@
 # STI - Projet 2 
 
-# Autheurs : Nair Alic - Jeremy Zerbib
+# Auteurs : Nair Alic - Jeremy Zerbib
 
 ## Identification de menaces et correction de faille dans une application WEB
 
@@ -31,35 +31,35 @@ Nous avons choisi de faire un mapping depuis la page d'accueil. Sur cette page, 
 
 Vous pouvez trouver le mapping de l'application grâce aux illustrations ci-dessous : 
 
-**Mapping de *index.php* ** 
+**Mapping de *index.php*** 
 
 ![index.php mapping](./assets/img/sequence_index.png)
 
-**Mapping de *nav.php* **
+**Mapping de *nav.php***
 
 ![](./assets/img/nav.png)
 
-**Mapping de *new message* **
+**Mapping de *new message***
 
 ![](./assets/img/new_message.png)
 
-**Mapping de *passwd* **
+**Mapping de *passwd***
 
 ![](./assets/img/change_pass.png)
 
-**Mapping de *adduser* **
+**Mapping de *adduser***
 
 ![](./assets/img/add_user.png)
 
-**Mapping de *updateuserchoice* **
+**Mapping de *updateuserchoice***
 
 ![](./assets/img/updateuserchoice.png)
 
-**Mapping de *deleteuser* **
+**Mapping de *deleteuser***
 
 ![](./assets/img/delete_user.png)
 
-**Mapping de *logout* **
+**Mapping de *logout***
 
 ![](./assets/img/logout.png)
 
@@ -139,11 +139,15 @@ Vous pouvez trouver le mapping de l'application grâce aux illustrations ci-dess
 
 ##### Vulnérabilités dans le code source
 
-**Step by step analyse** 
+**Détails de l'analyse**
 
-**Scénario**
+Pour l'analyse du code source, nous avons utilisé 2 méthodes. La première a consisté l'utilisation d'une application tierce qui va analyser notre code source et nous renvoyer des éventuelles erreurs de codage/faille dans notre code. La 2ème a été une analyse de type "CTRL-F" faite à la main fichier par fichier (car il n'y a pas énormément de code et de fichier).
 
-**Risques si cassé**
+- Pour la première analyse, nous avons utilisé un outil en ligne qui s'intègre avec Github (https://scrutinizer-ci.com/). En effet, cette application va analysé fichier par fichier le code PHP et relevé les différents problèmes rencontrés. Après analyse, l'outil nous renvoie 28 problèmes. 11 de types "Mineur" et 17 de type "Inconnu". Les 11 problèmes de type "Mineur" sont que dans chacun de nos fichier PHP nous avons utilisé le tag de fermeture "?>". En effet, ce tag n'est pas nécessaire et il peut induire des problèmes si des espaces blancs sont accidentellement rajouté après ce tag.
+  Les 17 autres problèmes de types "Unknown", renvoient tous ce problème : "`$db` is of type `SQLite3`, thus it always evaluated to `true`."  En effet, nous avons remarqué que dans la variable $db, on aura un type objet et va toujours renvoyé "true" et donc il ne va jamais rentrer dans le statement "if(!$db)". D'après l'outils, notre code est noté très bon.
+  ![](./assets/img/scrutinizer.png))
+- Pour la deuxième analyse, nous avons effectué une revue de code à la main et avons relevé les problèmes potentiels suivants : 
+  
 
  ### Patch de l'application
 
