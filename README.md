@@ -6,7 +6,7 @@
 
 ### Manuel utilisateur
 
-L'ancien document détaillant le manuel d'utilisation se trouve [ici](./docs/old_README.md).
+L'ancien document détaillant l'utilisation du site se trouve [ici](./docs/old_README.md).
 
 ### Etude de menace
 
@@ -27,7 +27,46 @@ L'ancien document détaillant le manuel d'utilisation se trouve [ici](./docs/old
 
 **Détails de l'analyse**
 
+Nous avons choisi de faire un mapping depuis la page d'accueil. Sur cette page, nous voyons que le fichier *index.php* est appelé. Nous pouvons voir que ce fichier fait office de page de *login* et qu'aucune autre action ne peut être faite à  priori. Une fois authentifié, l'utilisateur a accès à la barre de navigation qui permet de faire toutes les actions demandées par le cahier des charges.
+
+Vous pouvez trouver le mapping de l'application grâce aux illustrations ci-dessous : 
+
+**Mapping de *index.php* ** 
+
+![index.php mapping](./assets/img/sequence_index.png)
+
+**Mapping de *nav.php* **
+
+![](./assets/img/nav.png)
+
+**Mapping de *new message* **
+
+![](./assets/img/new_message.png)
+
+**Mapping de *passwd* **
+
+![](./assets/img/change_pass.png)
+
+**Mapping de *adduser* **
+
+![](./assets/img/add_user.png)
+
+**Mapping de *updateuserchoice* **
+
+![](./assets/img/updateuserchoice.png)
+
+**Mapping de *deleteuser* **
+
+![](./assets/img/delete_user.png)
+
+**Mapping de *logout* **
+
+![](./assets/img/logout.png)
+
+
+
 ##### Sauter les étapes de contrôles côté client
+
 **Step by step analyse** 
 
 **Scénario**
