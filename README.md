@@ -147,11 +147,11 @@ Pour l'analyse du code source, nous avons utilisé 2 méthodes. La première a c
   Les 17 autres problèmes de types "Unknown", renvoient tous ce problème : "`$db` is of type `SQLite3`, thus it always evaluated to `true`."  En effet, nous avons remarqué que dans la variable $db, on aura un type objet et va toujours renvoyé "true" et donc il ne va jamais rentrer dans le statement "if(!$db)". D'après l'outils, notre code est noté très bon.
   ![](./assets/img/scrutinizer.png))
 - Pour la deuxième analyse, nous avons effectué une revue de code à la main et avons relevé les problèmes potentiels suivants : 
-  
+  Après une revue du code à la main, nous avons constaté que nous pouvions améliorer nos requêtes SQL avec des "Prepared Statement", en effet cela va permettre d'éliminer les injections SQL. Nous avons aussi remarqué dans le code source que les password circulent clairs dans les variables et qu'un fichier contient les comptes avec mot de passe par défaut. Nous pourrions améliorer ceci, en laissant uniquement 1 utilisateur par défaut, et ou il devra changer de mot de passe après le premier login. Et aussi chiffrer les mots de passe au login et pendant les mise à jour.
 
  ### Patch de l'application
 
-**Enumaration des fixs faits sur l'app**
+**Enumération des fixs faits sur l'app**
 
 **Comment on l'a fait ?** 
 
