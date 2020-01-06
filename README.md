@@ -123,11 +123,17 @@ Vous pouvez trouver le mapping de l'application grâce aux illustrations ci-dess
 
 ##### Attaque côté utilisateur (XSS)
 
-**Step by step analyse** 
+**Details de l'analyse**
 
-**Scénario**
+Pour tester si il y a possibilité de faire une attaque par XSS, il a été très facile de le démontrer car il y a énormément de champs vulnérables et il n'y a aucun contrôle au niveau des entrées utilisateurs.
 
-**Risques si cassé**
+En voici un exemple concret en ajoutant dans le champ "subject" le message suivant <script>alert('bonjour')</script>
+
+![](/assets/img/xss_attack.png)
+
+Pour régler ce problème nous allons devoir instaurer un contrôle/validation au niveau des entrées utilisateurs. Il devra être HTML-encodé.
+
+Il y a énormément de risque, les attaques XSS sont très malicieuses et peuvent ouvrir d'autres portes au niveau de l'application et de la base de données.
 
 ##### Autres techniques d'attaques 
 
