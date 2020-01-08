@@ -1,0 +1,54 @@
+class  Input {
+	static $errors = true;
+
+	/**
+ 	* To check whether the inputs are empty or not
+ 	*/		
+	static function check($arr, $on = false) {
+		if ($on === false) {
+			$on = $_REQUEST;
+		}
+		foreach ($arr as $value) {	
+			if (empty($on[$value])) {
+				self::throwError('Data is missing', 900);
+			}
+		}
+	}
+
+	/**
+ 	* To validate integers
+ 	*/
+	static function int($val) {
+		$val = filter_var($val, FILTER_VALIDATE_INT);
+		if ($val === false) {
+			self::throwError('Invalid Integer', 901);
+		}
+		return $val;
+	}
+
+	/**
+ 	* To escape html characters and trim a string
+ 	*/
+	static function str($val) {
+		if (!is_string($val)) {
+			self::throwError('Invalid String', 902);
+		}
+		$val = trim(htmlspecialchars($val));
+		return $val;
+	}
+
+	/**
+ 	* To convert any variable to boolean
+ 	*/
+	static function bool($val) {
+		$val = filter_var($val, FILTER_VALIDATE_BOOLEAN);
+		return $val;
+	}
+
+	static function throwError($error = 'Error In Processing', $errorCode = 0) {
+		if (self::$errors === true) {
+			throw new Exception($error, $errorCode);
+		}
+	}
+
+}

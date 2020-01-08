@@ -2,11 +2,11 @@
 require("utils.php");
 session_start();
 
-$pseudo = $_POST['pseudo'];
-$validity = $_POST['validity'];
-$roles = $_POST['roles'];
-$passwd1 = $_POST['passwd1'];
-$passwd2 = $_POST['passwd2'];
+$pseudo = Input::str($_POST['pseudo']);
+$validity = Input::int($_POST['validity']);
+$roles = Input::str($_POST['roles']);
+$passwd1 = Input::str($_POST['passwd1']);
+$passwd2 = Input::str($_POST['passwd2']);
 
 if(isset($pseudo) && isset($validity) && isset($roles) && isset($passwd1) && isset($passwd2) && ($passwd1 == $passwd2)){
       

@@ -2,8 +2,8 @@
 require("utils.php");
 session_start(); 
 
-$pseudo = $_POST['pseudo'];
-$passwd = $_POST['passwd'];
+$pseudo = Input::str($_POST['pseudo']);
+$passwd = Input::str($_POST['passwd']);
 
 if(isset($pseudo) && isset($passwd)){
     
