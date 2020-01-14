@@ -73,9 +73,7 @@ Dans le cas où il serait possible de sauter des étapes côté client, il y a e
 
 Dans notre cas, il y a potentiellement un risque de perte de crédibilité et d'image publique avec un saut de l'étape de *login* par exemple. En effet, si un attaquant saute cette étape, il aura accès à un compte mail et pourra potentiellement avoir accès à toute la base de mails présente sur ce compte et en envoyer à de nouvelles personnes en se faisant passer pour quelqu'un d'autre.
 
-**Step by step analyse** 
-
-**Scénario**
+**Analyse**
 
 ##### Attaque de l'authentification
 
@@ -100,6 +98,8 @@ Les risques sont grave si l'attaque de session aboutit. Il y a une possibilité 
 Il y a une possibilité de casser la logique applicative, de faire de l'élévation de privilèges verticale et horizontale. De ce fait, il est possible d'avoir accès à certains fichiers sans forcément avoir le droit, de faire des paiements sans payer, avoir un compte `admin` sans avoir les droits.
 
 **Analyse**
+
+
 
 ##### Attaque de la base de donnée
 
@@ -133,11 +133,35 @@ En voici un exemple concret en ajoutant dans le champ "*subject*" le message sui
 
 Pour régler ce problème nous allons devoir instaurer un contrôle/validation au niveau des entrées utilisateurs. Il devra être HTML-encodé.
 
-##### Autres techniques d'attaques 
+##### Autres techniques d'attaques
 
-**Risques si cassé**
+Dans ce cas, nous pouvons imaginer des attaques qui sont induites des actions utilisateur (CSRF, OSRF, etc.), qui modifient l'interface utilisateur en utilisant des `iframes` qui rendent d'aspect le site légitime (possibilité de contourner les tokens anti-CSRF par exemple). 
+
+Nous pouvons aussi faire de l'injection afin de capturer des données là où le `XSS` n'a pas marché (injection d'`HTML`, de `CSS` ou contourner le `JavaScirpt`).
+
+Des attaques basée sur le `CrossDomain` de `Flash` ou `Silverlight` sont aussi possible mais ce sont des technologies de moins en moins utilisées. En revanche, une attaque sur `HTML5` permettrait de faire du `CrossDomain` ce qui permettrait de faire des scans de ports sur la machine hôte ou même un `DDOS`.
+
+Des injections dans le `header HTTP` permettrait de rajouter des entêtes voire même d'ajouter des cookies avec un `Set-Cookie`. Faire du `HTTP Response Splitting` est une possibilité aussi.
+
+Faire du `Session Fixation` (grossièrement une sorte de vol de session) est aussi envisageable avec des token pas régénéré après une nouvelle  authentification ou des token pas mis à jour.
+
+Des redirections ouvertes peuvent aussi être envisageable (surtout pour faire du trolling mais parfois ça peut être dangereux ...). 
+
+Faire du contournement de token anti-CSRF avec du `HTTP parameter pollution`.
+
+Des attaques de locales peuvent être faites sur l'historique, le contenu caché, les cookies persistant, l'autocomplétion, les objets partagés `Flash` locaux ou le stockage `Silverlight` isolé.
+
+Finalement, des `keyloggers` peuvent être utilisés sur le navigateur directement, ainsi que du vol d'historique, scans de ports, des attaques de hôtes réseau, de l'exploitation de service non-HTTP ou l'exploitation des vulnérabilités du navigateur directement.
+
+**Risque si cassé**
+
+Globalement, toutes les attaques listées ci-dessus permettent de faire du vol de sessions, de l'élévation de privilèges, de casser ou de rendre indisponible les différents services d'une application. 
 
 **Analyse**
+
+Lors de notre analyse, nous nous sommes concentrés majoritairement sur les attaques de type `CSRF`. La raison de ce focus est dû au fait que nous ne pouvons attaquer les requêtes directement car il s'agit de `HTTPS` (en pratique c'est bien du `HTTP` mais dans la situation énoncées en classe, nous devions faire comme si nous attaquions du `HTTPS`).
+
+Nous pouvons voir lors de notre revue du code que la présence de token anti-CSRF est inexistante. De ce fait, nous pouvons déduire qu'une attaque `CSRF` est plus que plausible. Nous n'avons pas réalisé de scénarios d'attaque par manque de temps mais le patch de cette vulnérabilité a été fait et sera expliqué plus tard dans le rapport.  
 
 ##### Vulnérabilités dans le code source
 
@@ -157,5 +181,8 @@ Pour l'analyse du code source, nous avons utilisé 2 méthodes. La première a c
 
 **Comment on l'a fait ?** 
 
-- Détail Faille par faille 
+- Correction des failles XSS
+- Correction des failles CSRF
+- Correction des failles d'élévation de privilèges
+- Correction des problèmes PHP technique
 

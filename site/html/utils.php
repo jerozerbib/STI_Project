@@ -207,6 +207,21 @@ function verifyAdmin(){
     }
 }
 
+function generateToken( $formName ){
+    $secretKey = 'gsfhs154aergz2#';
+    if ( !session_id() ) {
+        session_start();
+    }
+    $sessionId = session_id();
+
+    return sha1( $formName.$sessionId.$secretKey );
+
+}
+
+function checkToken( $token, $formName ){
+    return $token === generateToken( $formName );
+}
+
 class  Input {
 	static $errors = true;
 
@@ -259,7 +274,6 @@ class  Input {
 			throw new Exception($error, $errorCode);
 		}
 	}
-
 }
 
 
