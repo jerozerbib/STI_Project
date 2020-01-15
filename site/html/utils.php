@@ -12,7 +12,11 @@ function connect($pseudo, $passwd){
         echo $db->lastErrorMsg();
     }
 
-    $rows = $db->query("SELECT COUNT(*) as count FROM USER WHERE pseudo = '$pseudo' AND passwd = '$passwd'");
+    $stmt = $db->prepare ("SELECT COUNT(*) as count FROM USER WHERE pseudo = :pseudo AND passwd = :passwd");
+    $stmt->bindValue(':pseudo', $pseudo, SQLITE3_TEXT);
+    $stmt->bindValue(':passwd', $passwd, SQLITE3_TEXT);
+    $rows = $stmt->execute();
+//    $rows = $db->query("SELECT COUNT(*) as count FROM USER WHERE pseudo = '$pseudo' AND passwd = '$passwd'");
     $row = $rows->fetchArray();
     $db->close();
     $numRows = $row['count'];
