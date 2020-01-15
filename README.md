@@ -300,6 +300,31 @@ Pour l'analyse du code source, nous avons utilisé 2 méthodes. La première a c
 - Correction des problèmes PHP technique
 
   - Suppression des balises fermantes en fin de fichier.
+  
+- Ajout de `Prepared Statement`
+
+  - ```php
+    function connect($pseudo, $passwd){
+    
+        $db = new SQLite3(DB_PATH);
+        if(!$db) {
+            echo $db->lastErrorMsg();
+        }
+    
+        $stmt = $db->prepare ("SELECT COUNT(*) as count FROM USER WHERE pseudo = :pseudo AND passwd = :passwd");
+        $stmt->bindValue(':pseudo', $pseudo, SQLITE3_TEXT);
+        $stmt->bindValue(':passwd', $passwd, SQLITE3_TEXT);
+        $rows = $stmt->execute();
+    //    $rows = $db->query("SELECT COUNT(*) as count FROM USER WHERE pseudo = '$pseudo' AND passwd = '$passwd'");
+        $row = $rows->fetchArray();
+        $db->close();
+        $numRows = $row['count'];
+    
+        return  $numRows;
+    }
+    ```
+
+  - Pas toutes les fonctions ont été faite par manque de temps
 
 ## Amélioration potentielles mais pas faites
 
@@ -309,7 +334,7 @@ Dans l'application, il reste encore beaucoup d'éléments à sécuriser, mais qu
 - L'utilisation de HTTP est toujours d'actualité (en dehors du cadre)
 - Pas implémenté des JWT tokens pour la session
 - Amélioration de la gestion des droits utilisateurs
-- Nous aurions du mettre en place des `prepared statement` 
+- Nous aurions du mettre en place des `prepared statement` pour toutes les fonctions qui utilisent des queries
 
 ## Conclusion
 
