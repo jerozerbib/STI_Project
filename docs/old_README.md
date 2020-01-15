@@ -3,6 +3,9 @@
 ## Use case
 
 ### Linux OS
+
+You have to install `php-sqlite3` in order to have the database access.
+
 If you are running a Linux OS, you might want to try first to run the linux.sh script
 
 ```bash 
@@ -21,7 +24,7 @@ Then, use dock.sh
 
 ### Mac OSx
 
-First, run the dock.sh
+First check if `php-sqlite3` and, run the dock.sh
 
 ```bash 
 sh dock.sh
