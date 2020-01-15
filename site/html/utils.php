@@ -131,8 +131,14 @@ function deleteUser($id){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $db->query("DELETE FROM USER WHERE  id = '$id'");
-    $db->query("DELETE FROM CHAT WHERE  idreceive = '$id'");
+    $stmt = $db->prepare ("DELETE FROM USER WHERE  id = :id");
+    $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+    $stmt->execute();
+
+    $stmt = $db->prepare ("DELETE FROM CHAT WHERE  idreceive = :id");
+    $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+    $stmt->execute();
+
     $db->close();
 }
 
@@ -145,13 +151,20 @@ function insertUser($pseudo, $validity, $roles, $passwd){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $rows = $db->query("SELECT COUNT(*) as count FROM USER WHERE pseudo = '$pseudo'");
+    $stmt = $db->prepare ("SELECT COUNT(*) as count FROM USER WHERE pseudo = :pseudo");
+    $stmt->bindValue(':pseudo', $pseudo, SQLITE3_TEXT);
+    $rows = $stmt->execute();
+
     $row = $rows->fetchArray();
     $numRows = $row['count'];
 
     if($numRows == 0){
-        $query="INSERT INTO USER"."(pseudo, passwd, validity, roles)"."VALUES ('$pseudo','$passwd', '$validity' , '$roles')";
-        $db->exec($query);
+        $stmt = $db->prepare ("INSERT INTO USER"."(pseudo, passwd, validity, roles)"."VALUES (:pseudo,:passwd, :validity , :roles)");
+        $stmt->bindValue(':pseudo', $pseudo, SQLITE3_TEXT);
+        $stmt->bindValue(':passwd', $passwd, SQLITE3_TEXT);
+        $stmt->bindValue(':validity', $validity, SQLITE3_INTEGER);
+        $stmt->bindValue(':roles', $roles, SQLITE3_TEXT);
+        $stmt->execute();
     }
     $db->close();
 
@@ -167,9 +180,10 @@ function messageDetails($id){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $query="SELECT * FROM CHAT WHERE id='$id'";
-    $result=$db->query($query);
-	$row= $result->fetchArray();
+    $stmt = $db->prepare("SELECT * FROM CHAT WHERE id=:id");
+    $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+    $row= $result->fetchArray();
     $db->close();
 
     return $row;
