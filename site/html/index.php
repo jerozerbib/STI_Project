@@ -30,6 +30,7 @@ if (isset($_SESSION['connec']) && $_SESSION['connec'] == true){
 			<div>
 				<input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" required autofocus>
                 <input type="password" name="passwd" id="passwd" class="form-control" placeholder="Password" required>
+                <input type="hidden" name="csrf_token" value="<?php echo generateToken('login'); ?>"/>
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
 			</div>
 		</form>

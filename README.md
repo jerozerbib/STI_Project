@@ -147,6 +147,8 @@ Dans le cas d'une vulnérabilité dans la conception de la base de données, un 
 
 Dans l'application, il est à priori impossible de faire des attaques par injection `SQL`, ce qui rend les actions malicieuses compliquée. Le code de base utilise des `Prepared Statements` ce qui rend l'injection difficile et donc la base de données est plus ou moins sécurisée.
 
+En revanche, les mots de passe sont stockés en clair dans la base de données. Ce qui rend une attaque réussie très dangereuse.
+
 ##### Attaque de la logique d'application
 
 **Risques si cassé**
@@ -223,10 +225,93 @@ Pour l'analyse du code source, nous avons utilisé 2 méthodes. La première a c
 
 **Comment on l'a fait ?** 
 
-- Correction des failles XSS
-- Correction des failles CSRF
+- Correction des failles `XSS`
+
+  - Vérification des saisies utilisateurs.
+  - Utilisation des *sanitizers* pour enlever les balises `html` par exemple
+
+- Correction des failles `CSRF`
+
+  - Génération de token en fonction du nom du formulaire. 
+
+  - ```php
+    function generateToken( $formName ){
+        $secretKey = 'gsfhs154aergz2#';
+        if ( !session_id() ) {
+            session_start();
+        }
+        $sessionId = session_id();
+    
+        return sha1( $formName.$sessionId.$secretKey );
+    
+    }
+    ```
+
+  - Ajout de champs cachés dans les formulaires de l'application.
+
+  - ```php
+    <input type="hidden" name="csrf_token" value="<?php echo generateToken('login'); ?>"/>
+    
+    ```
+
+  - Vérification du token dans la page suivante lors de la réception.
+
+    - Redirection vers la page d'accueil si token non valide (aucun message d'erreur)
+    - Sinon on continue
+
+  - ```php
+    if (!empty($_POST['csrf_token'])) {
+        if (checkToken($_POST['csrf_token'], 'login')) {
+            if(isset($pseudo) && isset($passwd)){
+    
+                if(connect($pseudo, $passwd) == 1){
+    
+                    $row = getUser($pseudo, $passwd);
+    
+                    if($row['validity'] == 1){
+    
+                        $_SESSION['pseudo'] = utf8_decode($row['pseudo']);
+                        $_SESSION['connec'] = true;
+                        $_SESSION['roles'] = $row['roles'];
+                        $_SESSION['id'] = $row['id'];
+    
+                        header('Location: message.php');
+                    }
+                    else{
+    
+                        header('Location: index.php');
+                    }
+                }
+                else{
+    
+                    header('Location: index.php');
+                }
+            }
+        } else {
+            header('Location: index.php');
+        }
+    } else {
+        header('Location: index.php');
+    }
+    ```
+
 - Correction des failles d'élévation de privilèges
+
+  - Ajout de l'appel à la fonction `verifiyAdmin()` dans le fichier compromis. 
+
 - Correction des problèmes PHP technique
+
+  - Suppression des balises fermantes en fin de fichier.
+
+## Amélioration potentielles mais pas faites
+
+Dans l'application, il reste encore beaucoup d'éléments à sécuriser, mais que nous n'avons pas pu implémenter par manque de temps ou par défaut de besoin et en dehors de cadre du projet.
+
+- Les mots de passe sont toujours en clair
+- L'utilisation de HTTP est toujours d'actualité (en dehors du cadre)
+- Pas implémenté des JWT tokens pour la session.
+- Amélioration de la gestion des droits utilisateurs
 
 ## Conclusion
 
+En conclusion, nous avons pu faire un premier patch de sécurité sur une application pas sécurisée du tout. En revanche, par manque de temps, il reste encore beaucoup de modifications à faire.
