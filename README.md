@@ -10,33 +10,39 @@ L'ancien document détaillant l'utilisation du site se trouve [ici](./docs/old_R
 
 ## Introduction
 
-Dans le cadre de ce projet 2, nous avons du effectuer une analyse de l'application de messagerie développée durant le projet 1. Dans ce rapport, nous avons tout d'abord effectué une description du système afin de connaitre la structure générale. Celle-ci est composé d'un DFD et identifie les biens de l'application. Nous avons aussi défini le périmètre de sécurisation de l'application.
+Dans le cadre de ce projet 2, nous avons dû effectuer une analyse de l'application de messagerie développée durant le projet 1. Dans ce rapport, nous avons tout d'abord effectué une description du système afin de connaitre la structure générale. Celle-ci est composé d'un DFD et identifie les biens de l'application. Nous avons aussi défini le périmètre de sécurisation de l'application.
 
 Ensuite nous avons fait l'identification des éventuels sources de menaces et une analyse complète avec des scénarios d'attaques. Après avoir trouver des attaques possibles, nous avons patché l'application au maximum du possible sans casser les fonctionnalités de bases.
 
 ## Description du système
 
-DFD
+[DFD](#Mapping de l'application)
 
-Identification des biens
+[Identification des biens](#Identification des biens)
 
-Définir le périmètre de sécurisation
+[Définir le périmètre de sécurisation](#Étude de menace - identification des scénarios d'attaques)
 
 ## Identification des sources de menaces
 
+Nous avons pu définir que les sources de menaces viennent de divers endroits. En effet, un utilisateur malicieux et un peu débrouillard peut accéder à des informations sensibles de la boite mail d'un autre utilisateur. 
 
+D'autre part, un attaquant interne à la société pourrait accéder à tous les mots de passe, tous les comptes et faire des dégâts colossaux.
 
+## Identification des biens
 
+Dans cette application, nous savons que nous avons une boite électronique qui permet de visualiser des messages à une personne, d'envoyer des messages et certaines fonctionnalités de modification d'utilisateurs pour les admins.
 
-### Etude de menace - identification des scénarios d'attaques
+Un système de `login` permet de "sécuriser" l'accès à l'application.
+
+### Étude de menace - identification des scénarios d'attaques
 
 #### Analyse de prime abord
 
 - Mapping de l'application et quels appels sont faits à quel moment.
-- Nous avons essayé de *sniffer* des mots de passe avec `wireshark` et nous avons trouvé que ces derniers sont envoyés en clair.
+- Nous avons essayé de *sniffer* des mots de passe avec `wireshark` et nous avons trouvé que ces derniers sont envoyés en clair. (`HTTP`  en est la cause, une implémentation en `HTTPS` est recommandée).
 - Ensuite, nous avons essayé de faire des injections `XSS` et nous y arrivons avec succès.  
 - SQL injection ne marche pas à priori.
-- Escalade de privilèges facile à faire lors de la création d'un nouvel utilisateur sinon pas possible.
+- Escalade de privilèges facile à faire lors de la création d'un nouvel utilisateur sinon pas possible. (Oubli d'un appel de fonction dans les headers)
 - Possibilité de lire les mails des autres utilisateurs.
 - A priori pas de serveur d'application
 - Analyse du code source et utilisation de techniques douteuses.
@@ -95,13 +101,19 @@ Dans notre cas, il y a potentiellement un risque de perte de crédibilité et d'
 
 **Analyse**
 
+Lors de notre analyse, nous avons vu qu'il n'y a pas de contrôles actifs du côtés client. Nous pouvons facilement visualiser les messages d'autres utilisateurs avec un intercepteur comme `Burp` par exemple. Nous voyons que nous pouvons modifier les champs qui sont interceptés dans la requête et cela nous permet de "changer" de compte. 
+
+De plus, il manque un appel à la fonction `verifyAdmin()` dans le fichier `adduser.php` ce qui contrôles les autorisations  d'un utilisateur. Il est donc possible avec un outil comme `Postman` de faire une requête de type `POST` et de créer un utilisateur privilégié dans la base de données.
+
 ##### Attaque de l'authentification
 
 **Risques si cassé**
 
 L'authentification est le premier rempart basique de sécurité. Si ce rempart tombe, personne n'est en sécurité dans l'application. Tout le monde peut avoir accès à un compte d'une autre personne.
 
-**Analyse** 
+**Analyse**
+
+Nous n'avons pas trouvé de failles pour l’authentification. Les injection `SQL`ne marchent pas, ce qui rend le contournement compliqué. Nous ne pouvons pas avoir accès à un compte d'un autre utilisateur à proprement parlé, si ce n'est le contournement depuis un compte authentifié vers un autre compte comme expliqué [ici](#Sauter les étapes de contrôles côté client). 
 
 ##### Attaque de session
 
@@ -111,6 +123,10 @@ Les risques sont grave si l'attaque de session aboutit. Il y a une possibilité 
 
 **Analyse**
 
+![](./assets/img/Burp_intercept.png)
+
+Nous avons vu que les *credentials* sont envoyés en clair. Les `PHPSESSID` est facilement récupérable et cela permet de se faire passer pour quelqu'un d'autre. 
+
 ##### Attaque des contrôles d'accès
 
 **Risques si cassé**
@@ -119,7 +135,7 @@ Il y a une possibilité de casser la logique applicative, de faire de l'élévat
 
 **Analyse**
 
-
+Dans notre application, comme explicité [ici](#Sauter les étapes de contrôles côté client), il est possible de sauter certains contrôle d'accès pour la création d'utilisateurs et la consultation de mails.
 
 ##### Attaque de la base de donnée
 
@@ -129,13 +145,19 @@ Dans le cas d'une vulnérabilité dans la conception de la base de données, un 
 
 **Analyse**
 
+Dans l'application, il est à priori impossible de faire des attaques par injection `SQL`, ce qui rend les actions malicieuses compliquée. Le code de base utilise des `Prepared Statements` ce qui rend l'injection difficile et donc la base de données est plus ou moins sécurisée.
+
 ##### Attaque de la logique d'application
 
 **Risques si cassé**
 
 Si la logique est cassée, il y a une potentialité de sauter des étapes essentielles, usurper des identités, et donc une perte d'informations, d'argent ou de crédibilité pour l'entreprise.
 
-**Analyse** 
+**Analyse**
+
+Dans notre application, la logique veut qu'un utilisateur se log sur le serveur mails, et suivant ces permissions, il peut modifier des informations sur des utilisateurs, en ajouter et en supprimer et dans tous les cas envoyer des mails. 
+
+A priori, il est donc possible de sauter certaines étapes de la logique applicative car nous pouvons créer un utilisateur privilégié, ou même de consulter les mails d'autres utilisateurs.  
 
 ##### Attaque côté utilisateur (XSS)
 
@@ -193,7 +215,7 @@ Pour l'analyse du code source, nous avons utilisé 2 méthodes. La première a c
   Les 17 autres problèmes de types "Unknown", renvoient tous ce problème : "`$db` is of type `SQLite3`, thus it always evaluated to `true`."  En effet, nous avons remarqué que dans la variable $db, on aura un type objet et va toujours renvoyé "true" et donc il ne va jamais rentrer dans le statement "if(!$db)". D'après l'outils, notre code est noté très bon.
   ![](./assets/img/scrutinizer.png))
 - Pour la deuxième analyse, nous avons effectué une revue de code à la main et avons relevé les problèmes potentiels suivants : 
-  Après une revue du code à la main, nous avons constaté que nous pouvions améliorer nos requêtes SQL avec des "`Prepared Statement`", en effet cela va permettre d'éliminer les injections SQL. Nous avons aussi remarqué dans le code source que les *passwords* circulent clairs dans les variables et qu'un fichier contient les comptes avec mot de passe par défaut. Nous pourrions améliorer ceci, en laissant uniquement 1 utilisateur par défaut, et ou il devra changer de mot de passe après le premier login. Et aussi chiffrer les mots de passe au login et pendant les mise à jour.
+  Après une revue du code à la main, nous avons constaté que nous pouvions améliorer nos requêtes SQL avec des "`Prepared Statement`", en effet cela va permettre d'éliminer totalement les injections SQL. Nous avons aussi remarqué dans le code source que les *passwords* circulent en clair dans les variables et sur le réseau et qu'un fichier contient les comptes avec mot de passe par défaut. Nous pourrions améliorer ceci, en laissant uniquement 1 utilisateur par défaut, et ou il devra changer de mot de passe après le premier login. Il faut aussi chiffrer les mots de passe au login et pendant les mise à jour. L'utilisation de JWT tokens peut aussi aider pour sécuriser le login et la session.
 
  ### Patch de l'application - identification des contre-mesures
 
@@ -205,8 +227,6 @@ Pour l'analyse du code source, nous avons utilisé 2 méthodes. La première a c
 - Correction des failles CSRF
 - Correction des failles d'élévation de privilèges
 - Correction des problèmes PHP technique
-
-
 
 ## Conclusion
 
