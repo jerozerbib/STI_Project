@@ -66,9 +66,12 @@ if (!isset($_POST['choice'])) {
             echo '<input type="hidden" name="csrf_token" value="<?php echo generateToken(\'updateForm\'); ?>"/>';
             echo '<button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>';
             echo '</form>';
+        } else {
+            header('Location: index.php');
         }
-
-    } // end if
+    } else {
+        header('Location: index.php');
+    }
 
     $db->close();
     ?>

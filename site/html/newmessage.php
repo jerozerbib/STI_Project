@@ -20,6 +20,7 @@ verify();
                     <input type="text" name="to" id="to" class="form-control" placeholder="To" required>
                     <input type="text" name="subject" id="subject" class="form-control" placeholder="Subject" required>
 				    <textarea type="text" name="message" id="message" class="form-control" placeholder="Message" required></textarea>
+                    <input type="hidden" name="csrf_token" value="<?php echo generateToken('newMessage'); ?>"/>
 				    <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
 			    </div>
 		    </form>

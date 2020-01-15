@@ -11,7 +11,11 @@ if (!empty($_POST['csrf_token'])) {
         $passwd = $_POST['passwd'];
 
         updateUser($id, $validity, $role, $passwd);
+    } else {
+        header('Location: index.php');
     }
+} else {
+    header('Location: index.php');
 }
 
 

@@ -32,6 +32,7 @@ verify();
                     echo '<div>Message :</div>';
                     echo '<textarea class="form-control" style="width:300px; min-height:100px;" disabled>'.utf8_decode($row['messages']).'</textarea>';
                     echo '<form action="messagescript.php" method="post">';
+                    echo '<input type="hidden" name="csrf_token" value="<?php echo generateToken(\'messageDetail\'); ?>"/>';
                     echo '<div style="width:300px;">';
                     echo '<button class="btn btn-primary btn-block" type="submit" name="up[]" value="rep_'.$row['id'].'">Reply</button>';
                     echo '</div>';
