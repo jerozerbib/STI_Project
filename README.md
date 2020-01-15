@@ -309,6 +309,7 @@ Dans l'application, il reste encore beaucoup d'éléments à sécuriser, mais qu
 - L'utilisation de HTTP est toujours d'actualité (en dehors du cadre)
 - Pas implémenté des JWT tokens pour la session
 - Amélioration de la gestion des droits utilisateurs
+- Nous aurions du mettre en place des `prepared statement` 
 
 ## Conclusion
 
