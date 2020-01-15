@@ -10,17 +10,15 @@ L'ancien document détaillant l'utilisation du site se trouve [ici](./docs/old_R
 
 ## Introduction
 
-Dans le cadre de ce projet 2, nous avons dû effectuer une analyse de l'application de messagerie développée durant le projet 1. Dans ce rapport, nous avons tout d'abord effectué une description du système afin de connaitre la structure générale. Celle-ci est composé d'un DFD et identifie les biens de l'application. Nous avons aussi défini le périmètre de sécurisation de l'application.
+Dans le cadre de ce projet 2, nous avons dû effectuer une analyse de l'application de messagerie développée durant le projet 1. Dans ce rapport, nous avons tout d'abord effectué une description du système afin de connaitre la structure générale. Celle-ci est composé d'un DFD et identifie les biens de l'application.
 
-Ensuite nous avons fait l'identification des éventuels sources de menaces et une analyse complète avec des scénarios d'attaques. Après avoir trouver des attaques possibles, nous avons patché l'application au maximum du possible sans casser les fonctionnalités de bases.
+Ensuite nous avons fait l'identification des éventuels sources de menaces et une analyse complète avec des scénarios d'attaques. Après avoir trouver des attaques possibles, nous avons patché l'application au maximum du possible sans casser les fonctionnalités de bases. Nous nous sommes basés sur les éléments vus en cours et durant les présentations.
 
 ## Description du système
 
 [DFD](#Mapping de l'application)
 
 [Identification des biens](#Identification des biens)
-
-[Définir le périmètre de sécurisation](#Étude de menace - identification des scénarios d'attaques)
 
 ## Identification des sources de menaces
 
@@ -145,9 +143,9 @@ Dans le cas d'une vulnérabilité dans la conception de la base de données, un 
 
 **Analyse**
 
-Dans l'application, il est à priori impossible de faire des attaques par injection `SQL`, ce qui rend les actions malicieuses compliquée. Le code de base utilise des `Prepared Statements` ce qui rend l'injection difficile et donc la base de données est plus ou moins sécurisée.
+Dans l'application, il est à priori possible de faire des attaques par injection `SQL`, ce qui rend les actions particulièrement malicieuses. Le code de base n'utilise pas des `Prepared Statements` ce qui rend l'injection possible et donc la base de données est moins sécurisée.
 
-En revanche, les mots de passe sont stockés en clair dans la base de données. Ce qui rend une attaque réussie très dangereuse.
+De plus, les mots de passe sont stockés en clair dans la base de données. Ce qui rend une attaque réussie très dangereuse.
 
 ##### Attaque de la logique d'application
 
@@ -309,7 +307,7 @@ Dans l'application, il reste encore beaucoup d'éléments à sécuriser, mais qu
 
 - Les mots de passe sont toujours en clair
 - L'utilisation de HTTP est toujours d'actualité (en dehors du cadre)
-- Pas implémenté des JWT tokens pour la session.
+- Pas implémenté des JWT tokens pour la session
 - Amélioration de la gestion des droits utilisateurs
 
 ## Conclusion
