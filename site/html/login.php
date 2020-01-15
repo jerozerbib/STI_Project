@@ -1,40 +1,30 @@
 <?php
 require("utils.php");
-session_start(); 
+session_start();
 
 $pseudo = Input::str($_POST['pseudo']);
 $passwd = Input::str($_POST['passwd']);
 
-if (!empty($_POST['csrf_token'])) {
-    if (checkToken($_POST['csrf_token'], 'login')) {
-        if(isset($pseudo) && isset($passwd)){
+if (isset($pseudo) && isset($passwd)) {
 
-            if(connect($pseudo, $passwd) == 1){
+    if (connect($pseudo, $passwd) == 1) {
 
-                $row = getUser($pseudo, $passwd);
+        $row = getUser($pseudo, $passwd);
 
-                if($row['validity'] == 1){
+        if ($row['validity'] == 1) {
 
-                    $_SESSION['pseudo'] = utf8_decode($row['pseudo']);
-                    $_SESSION['connec'] = true;
-                    $_SESSION['roles'] = $row['roles'];
-                    $_SESSION['id'] = $row['id'];
+            $_SESSION['pseudo'] = utf8_decode($row['pseudo']);
+            $_SESSION['connec'] = true;
+            $_SESSION['roles'] = $row['roles'];
+            $_SESSION['id'] = $row['id'];
 
-                    header('Location: message.php');
-                }
-                else{
+            header('Location: message.php');
+        } else {
 
-                    header('Location: index.php');
-                }
-            }
-            else{
-
-                header('Location: index.php');
-            }
+            header('Location: index.php');
         }
     } else {
+
         header('Location: index.php');
     }
-} else {
-    header('Location: index.php');
 }
