@@ -11,6 +11,7 @@ function connect($pseudo, $passwd){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
+
     $rows = $db->query("SELECT COUNT(*) as count FROM USER WHERE pseudo = '$pseudo' AND passwd = '$passwd'");
     $row = $rows->fetchArray();
     $db->close();
@@ -219,7 +220,7 @@ function generateToken( $formName ){
 }
 
 function checkToken( $token, $formName ){
-    return $token === generateToken( $formName );
+    return $token == generateToken( $formName );
 }
 
 class  Input {

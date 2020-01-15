@@ -7,4 +7,3 @@ foreach($_POST['del'] as $checkbox){
 }
 
 header('Location: deleteuser.php');
-?>

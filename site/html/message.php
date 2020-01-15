@@ -40,7 +40,6 @@ verify();
                     echo '</div>';
                     echo '<div style="width:300px;">';
                     echo '<button class="btn btn-primary btn-block" type="submit" name="up[]" value="det_'.$row['id'].'">Details</button>';
-                    echo '<input type="hidden" name="csrf_token" value="<?php echo generateToken(\'message\'); ?>"/>';
                     echo '</div>';
                     echo '</div>';
                     echo '</form>';
