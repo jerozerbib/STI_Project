@@ -8,7 +8,27 @@
 
 L'ancien document détaillant l'utilisation du site se trouve [ici](./docs/old_README.md).
 
-### Etude de menace
+## Introduction
+
+Dans le cadre de ce projet 2, nous avons du effectuer une analyse de l'application de messagerie développée durant le projet 1. Dans ce rapport, nous avons tout d'abord effectué une description du système afin de connaitre la structure générale. Celle-ci est composé d'un DFD et identifie les biens de l'application. Nous avons aussi défini le périmètre de sécurisation de l'application.
+
+Ensuite nous avons fait l'identification des éventuels sources de menaces et une analyse complète avec des scénarios d'attaques. Après avoir trouver des attaques possibles, nous avons patché l'application au maximum du possible sans casser les fonctionnalités de bases.
+
+## Description du système
+
+DFD
+
+Identification des biens
+
+Définir le périmètre de sécurisation
+
+## Identification des sources de menaces
+
+
+
+
+
+### Etude de menace - identification des scénarios d'attaques
 
 #### Analyse de prime abord
 
@@ -175,7 +195,7 @@ Pour l'analyse du code source, nous avons utilisé 2 méthodes. La première a c
 - Pour la deuxième analyse, nous avons effectué une revue de code à la main et avons relevé les problèmes potentiels suivants : 
   Après une revue du code à la main, nous avons constaté que nous pouvions améliorer nos requêtes SQL avec des "`Prepared Statement`", en effet cela va permettre d'éliminer les injections SQL. Nous avons aussi remarqué dans le code source que les *passwords* circulent clairs dans les variables et qu'un fichier contient les comptes avec mot de passe par défaut. Nous pourrions améliorer ceci, en laissant uniquement 1 utilisateur par défaut, et ou il devra changer de mot de passe après le premier login. Et aussi chiffrer les mots de passe au login et pendant les mise à jour.
 
- ### Patch de l'application
+ ### Patch de l'application - identification des contre-mesures
 
 **Énumération des corrections faites sur l'application**
 
@@ -185,4 +205,8 @@ Pour l'analyse du code source, nous avons utilisé 2 méthodes. La première a c
 - Correction des failles CSRF
 - Correction des failles d'élévation de privilèges
 - Correction des problèmes PHP technique
+
+
+
+## Conclusion
 
