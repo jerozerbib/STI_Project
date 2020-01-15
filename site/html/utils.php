@@ -16,7 +16,7 @@ function connect($pseudo, $passwd){
     $stmt->bindValue(':pseudo', $pseudo, SQLITE3_TEXT);
     $stmt->bindValue(':passwd', $passwd, SQLITE3_TEXT);
     $rows = $stmt->execute();
-//    $rows = $db->query("SELECT COUNT(*) as count FROM USER WHERE pseudo = '$pseudo' AND passwd = '$passwd'");
+
     $row = $rows->fetchArray();
     $db->close();
     $numRows = $row['count'];
@@ -33,7 +33,11 @@ function getUser($pseudo, $passwd){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $rows = $db->query("SELECT * FROM USER WHERE pseudo = '$pseudo' AND passwd = '$passwd'");
+    $stmt = $db->prepare ("SELECT * FROM USER WHERE pseudo = :pseudo AND passwd = :passwd");
+    $stmt->bindValue(':pseudo', $pseudo, SQLITE3_TEXT);
+    $stmt->bindValue(':passwd', $passwd, SQLITE3_TEXT);
+    $rows = $stmt->execute();
+
     $row = $rows->fetchArray();
     $db->close();
 
@@ -42,6 +46,8 @@ function getUser($pseudo, $passwd){
 
 /**
  * Get pseudo with the id.
+ * @param $id
+ * @return mixed
  */
 function getUserPseudo($id){
 
@@ -49,7 +55,10 @@ function getUserPseudo($id){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $rows = $db->query("SELECT pseudo FROM USER WHERE id = '$id'");
+    $stmt = $db->prepare ("SELECT pseudo FROM USER WHERE id=:id");
+    $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+    $rows = $stmt->execute();
+
     $row = $rows->fetchArray();
     $db->close();
 
@@ -65,7 +74,10 @@ function getID($pseudo){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $rows = $db->query("SELECT id FROM USER WHERE pseudo = '$pseudo'");
+    $stmt = $db->prepare ("SELECT id FROM USER WHERE pseudo = :pseudo");
+    $stmt->bindValue(':pseudo', $pseudo, SQLITE3_TEXT);
+    $rows = $stmt->execute();
+
     $row = $rows->fetchArray();
     $db->close();
 
@@ -81,12 +93,20 @@ function updateUser($id, $validity, $role, $passwd){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $db->query("UPDATE USER SET passwd='$passwd', validity='$validity', roles='$role' WHERE id='$id'");
+    $stmt = $db->prepare ("UPDATE USER SET passwd=:passwd, validity=:validity, roles=:role WHERE id=:id");
+    $stmt->bindValue(':passwd', $passwd, SQLITE3_TEXT);
+    $stmt->bindValue(':validity', $validity, SQLITE3_INTEGER);
+    $stmt->bindValue(':role', $role, SQLITE3_TEXT);
+    $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+    $stmt->execute();
+
     $db->close();
 }
 
 /**
  * Update the password with a pseudo.
+ * @param $pseudo
+ * @param $passwd
  */
 function updatePasswd($pseudo, $passwd){
 
@@ -94,7 +114,11 @@ function updatePasswd($pseudo, $passwd){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $db->query("UPDATE USER SET passwd='$passwd' WHERE pseudo='$pseudo'");
+
+    $stmt = $db->prepare ("UPDATE USER SET passwd=:passwd WHERE pseudo=:pseudo");
+    $stmt->bindValue(':pseudo', $pseudo, SQLITE3_TEXT);
+    $stmt->bindValue(':passwd', $passwd, SQLITE3_TEXT);
+    $stmt->execute();
     $db->close();
 }
 
@@ -160,19 +184,24 @@ function addMessage($ids, $idr, $subject, $message){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $query="INSERT INTO CHAT"."(idsend, idreceive, subject, messages, read)"."VALUES ('$ids','$idr', '$subject', '$message', 1)";
-    $db->exec($query);
+    $stmt = $db->prepare("INSERT INTO CHAT"."(idsend, idreceive, subject, messages, read)"."VALUES (:ids, :idr, :subject, :message, 1)");
+    $stmt->bindValue(':ids', $ids, SQLITE3_INTEGER);
+    $stmt->bindValue(':idr', $idr, SQLITE3_INTEGER);
+    $stmt->bindValue(':subject', $subject, SQLITE3_TEXT);
+    $stmt->bindValue(':message', $message, SQLITE3_TEXT);
+    $stmt->execute();
     $db->close();
 }
 
 function alreadyRead($id){
 
-    $db = new SQLite3(DB_PATH);
+$db = new SQLite3(DB_PATH);
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $query="UPDATE CHAT SET read=0 WHERE id='$id'";
-    $db->exec($query);
+    $stmt = $db->prepare("UPDATE CHAT SET read=0 WHERE id=:id");
+    $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+    $stmt->execute();
     $db->close();
 }
 
@@ -185,8 +214,9 @@ function deleteMessage($id){
     if(!$db) {
         echo $db->lastErrorMsg();
     }
-    $query="DELETE FROM CHAT WHERE id='$id'";
-    $db->exec($query);
+    $stmt = $db->prepare("DELETE FROM CHAT WHERE id=:id");
+    $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+    $stmt->execute();
     $db->close();
 }
 

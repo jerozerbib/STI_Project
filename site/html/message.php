@@ -29,7 +29,7 @@ verify();
                         echo '<div  class="badge badge-primary">NEW</div>';
                     }
                     echo '<div>Date : '.$row['Timestamp']. '</div>';
-                    echo '<div>From : '.utf8_decode(getUserPseudo($row['idsend'])). '</div>';
+                    echo '<div>From : '.utf8_decode(getUserPseudo($row['idsend'])).'</div>';
                     echo '<div>Subject : '.utf8_decode($row['subject']).'</div>';
                     echo '<form action="messagescript.php" method="post">';
                     echo '<div style="width:300px;">';
