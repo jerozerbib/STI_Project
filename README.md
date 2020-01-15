@@ -333,8 +333,8 @@ Dans l'application, il reste encore beaucoup d'éléments à sécuriser, mais qu
 - Les mots de passe sont toujours en clair
 - L'utilisation de HTTP est toujours d'actualité (en dehors du cadre)
 - Pas implémenté des JWT tokens pour la session
-- Amélioration de la gestion des droits utilisateurs
-- Nous aurions du mettre en place des `prepared statement` pour toutes les fonctions qui utilisent des queries
+- Amélioration de la gestion des droits utilisateurst'as changé le readme en bas?
+- Nous aurions du mettre en place des `prepared statement` pour toutes les fonctions qui utilisent des queries. Les fonctions principales sont patchées mais pas la totalité du code.
 
 ## Conclusion
 
